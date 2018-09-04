@@ -168,7 +168,7 @@
 
   <build>
     <build>
-        <finalName>${project.artifactId}-${project.version}</finalName>
+        <finalName>${project.artifactId}</finalName>
         <defaultGoal>compile</defaultGoal>
         <resources>
             <resource>
