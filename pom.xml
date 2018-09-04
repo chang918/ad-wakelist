@@ -167,110 +167,110 @@
   </dependencies>
 
   <build>
-    <build>
-        <finalName>${project.artifactId}</finalName>
-        <defaultGoal>compile</defaultGoal>
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <filtering>false</filtering>
-                <excludes>
-                    <exclude>**/*.production.*</exclude>
-                    <exclude>**/*.develop.*</exclude>
-                    <exclude>**/*.test.*</exclude>
-                </excludes>
-            </resource>
-        </resources>
-        <plugins>
-            <!-- compiler插件, 设定JDK版本、文件编码 -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.3</version>
-                <configuration>
-                    <source>${project.build.sourceVersion}</source>
-                    <target>${project.build.targetVersion}</target>
-                    <encoding>${project.build.sourceEncoding}</encoding>
-                    <showWarnings>true</showWarnings>
-                </configuration>
-            </plugin>
+    <finalName>${project.artifactId}</finalName>
+    <defaultGoal>compile</defaultGoal>
+    <resources>
+        <resource>
+            <directory>src/main/resources</directory>
+            <filtering>false</filtering>
+            <excludes>
+                <exclude>**/*.production.*</exclude>
+                <exclude>**/*.develop.*</exclude>
+                <exclude>**/*.test.*</exclude>
+            </excludes>
+        </resource>
+    </resources>
+    <plugins>
+        <!-- compiler插件, 设定JDK版本、文件编码 -->
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.3</version>
+            <configuration>
+                <source>${project.build.sourceVersion}</source>
+                <target>${project.build.targetVersion}</target>
+                <encoding>${project.build.sourceEncoding}</encoding>
+                <showWarnings>true</showWarnings>
+            </configuration>
+        </plugin>
 
-            <!-- war打包插件, 设定war包名称不带版本号 -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>2.6</version>
-                <configuration>
-                    <warName>${project.artifactId}</warName>
-                    <webResources>
-                        <resource>
-                            <directory>${basedir}/src/main/webapp/WEB-INF</directory>
-                            <filtering>true</filtering>
-                            <targetPath>WEB-INF</targetPath>
-                            <includes>
-                                <include>**/web.xml</include>
-                            </includes>
-                        </resource>
-                    </webResources>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <version>1.7</version>
-                <executions>
-                    <execution>
-                        <id>develop,test</id>
-                        <phase>process-resources</phase>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                        <configuration>
-                            <target>
-                                <delete file="${project.build.outputDirectory}/jdbc.properties"/>
-                                <copy file="src/main/resources/jdbc.${env}.properties"
-                                      tofile="${project.build.outputDirectory}/jdbc.properties"/>
-                            </target>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
+        <!-- war打包插件, 设定war包名称不带版本号 -->
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-war-plugin</artifactId>
+            <version>2.6</version>
+            <configuration>
+                <warName>${project.artifactId}</warName>
+                <webResources>
+                    <resource>
+                        <directory>${basedir}/src/main/webapp/WEB-INF</directory>
+                        <filtering>true</filtering>
+                        <targetPath>WEB-INF</targetPath>
+                        <includes>
+                            <include>**/web.xml</include>
+                        </includes>
+                    </resource>
+                </webResources>
+            </configuration>
+        </plugin>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-antrun-plugin</artifactId>
+            <version>1.7</version>
+            <executions>
+                <execution>
+                    <id>develop,test</id>
+                    <phase>process-resources</phase>
+                    <goals>
+                        <goal>run</goal>
+                    </goals>
+                    <configuration>
+                        <target>
+                            <delete file="${project.build.outputDirectory}/jdbc.properties"/>
+                            <copy file="src/main/resources/jdbc.${env}.properties"
+                                  tofile="${project.build.outputDirectory}/jdbc.properties"/>
+                        </target>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
 
-            <!-- 解决资源文件的编码问题 -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>2.7</version>
-                <configuration>
-                    <encoding>${project.build.sourceEncoding}</encoding>
-                </configuration>
-            </plugin>
+        <!-- 解决资源文件的编码问题 -->
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-resources-plugin</artifactId>
+            <version>2.7</version>
+            <configuration>
+                <encoding>${project.build.sourceEncoding}</encoding>
+            </configuration>
+        </plugin>
 
-            <!-- install插件 -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-install-plugin</artifactId>
-                <version>2.5.2</version>
-            </plugin>
+        <!-- install插件 -->
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-install-plugin</artifactId>
+            <version>2.5.2</version>
+        </plugin>
 
-            <!-- clean插件 -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-clean-plugin</artifactId>
-                <version>2.6.1</version>
-            </plugin>
+        <!-- clean插件 -->
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-clean-plugin</artifactId>
+            <version>2.6.1</version>
+        </plugin>
 
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.19.1</version>
-                <configuration>
-                    <skipTests>true</skipTests>
-                </configuration>
-            </plugin>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>2.19.1</version>
+            <configuration>
+                <skipTests>true</skipTests>
+            </configuration>
+        </plugin>
 
-        </plugins>
-    </build>
+    </plugins>
+  </build>
+
     <profiles>
         <profile>
             <id>develop</id>
